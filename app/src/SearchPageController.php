@@ -38,6 +38,28 @@ class SearchPageController extends PageController
 
     public function index(HTTPRequest $request){
         $entries = Entry::get();
+
+        if ($name = $request->getVar('Name')) {
+            $entries = $entries->filter([
+                'Name:PartialMatch' => $name
+            ]);
+        }
+        if ($email = $request->getVar('Email')) {
+            $entries = $entries->filter([
+                'Email:PartialMatch' => $email
+            ]);
+        }
+        if ($phone = $request->getVar('Phone')) {
+            $entries = $entries->filter([
+                'Phone:PartialMatch' => $phone
+            ]);
+        }
+        if ($address = $request->getVar('Address')) {
+            $entries = $entries->filter([
+                'Address:PartialMatch' => $address
+            ]);
+        }
+
         $data = array(
             'Results' => $entries
         );

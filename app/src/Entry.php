@@ -12,4 +12,15 @@ class Entry extends DataObject{
         'Email' => 'Varchar',
         'Phone' => 'Varchar',
     ];
+
+    private static $has_one = [
+        'EntryPage' => EntryPage::class,
+    ];
+
+
+    public function EditLink()
+    {
+        $page = EntryPage::get()->first();
+        return $page->Link('edit/'.$this->ID);
+    }
 }
