@@ -23,4 +23,10 @@ class Entry extends DataObject{
         $page = EntryPage::get()->first();
         return $page->Link('edit/'.$this->ID);
     }
+
+    public function DeleteLink()
+    {
+        $page = EntryPage::get()->first();
+        return $page->Link('delete/'.$this->ID);
+    }
 }

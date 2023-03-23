@@ -14,7 +14,8 @@ class EntryPageController extends PageController
     private static $allowed_actions = [
         'Form',
         'edit',
-        'update'
+        'update',
+        'delete'
     ];
     
     public function Form()
@@ -74,7 +75,7 @@ class EntryPageController extends PageController
         return $this->redirectBack();
     }
 
-    public function update($data, $form, $entry)
+    public function update($data, $form)
     {
         $name = $data['Name'];
         $email = $data['Email'];
@@ -91,6 +92,13 @@ class EntryPageController extends PageController
 
         $entry->write();
 
+        return $this->redirect('/search-contacts');
+    }
+
+    public function delete(HTTPRequest $request)
+    {
+        $entry = Entry::get()->byID($request->param('ID'));
+        $entry->delete();
         return $this->redirect('/search-contacts');
     }
 }
